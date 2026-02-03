@@ -29,7 +29,9 @@ import Prelude  hiding (replicate, sum, reverse)
 -- []
 
 listReverse :: [a] -> [a]
-listReverse xs = error "TBD:listReverse"
+listReverse(x:xs) = listReverse xs ++ [x]
+listReverse [] = []
+
 
 
 -- | Determine whether a string is a palindrome (i.e. spelled the same
@@ -45,7 +47,8 @@ listReverse xs = error "TBD:listReverse"
 -- True
 
 palindrome :: String -> Bool
-palindrome w = error "TBD:palindrome"
+palindrome [] = True
+palindrome (x:xs) = listReverse(x:xs) == (x:xs)
 
 
 -- | `digitsOfInt n` should return `[]` if `n` is not positive,
@@ -62,7 +65,10 @@ palindrome w = error "TBD:palindrome"
 -- []
 
 digitsOfInt :: Integer -> [Integer]
-digitsOfInt n = error "TBD:digitsOfInt"
+digitsOfInt n | n <= 0 = []
+digitsOfInt n | n < 10 = [n]
+digitsOfInt n = digitsOfInt (div n 10) ++ [mod n 10]
+
 
 
 -- | `digitsOfInts xs` should return a list containing all of the digits
@@ -75,7 +81,9 @@ digitsOfInt n = error "TBD:digitsOfInt"
 -- []
 
 digitsOfInts :: [Integer] -> [Integer]
-digitsOfInts xs = error "TBD:digitsOfInts"
+digitsOfInts [] = []
+digitsOfInts (x:xs) = digitsOfInt (x) ++ digitsOfInts (xs)
+
 
 
 -- | Doubles every other integer in a list,
@@ -91,7 +99,9 @@ digitsOfInts xs = error "TBD:digitsOfInts"
 -- []
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther xs = error "TBD:doubleEveryOther"
+doubleEveryOther [] = []
+doubleEveryOther [x] = [x]
+doubleEveryOther (x:y:xs) = [x] ++ [2*y] ++ doubleEveryOther xs
 
 
 -- | Sum the elements of a list
@@ -106,7 +116,8 @@ doubleEveryOther xs = error "TBD:doubleEveryOther"
 -- 36
 
 sumList :: [Integer] -> Integer
-sumList xs = error "TBD:sumList"
+sumList [] = 0
+sumList (x:xs) = x + sumList (xs)
 
 
 -- | Validate a credit card number
